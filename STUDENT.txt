@@ -1,0 +1,7 @@
+url:
+
+https://khallifah0006.github.io/narsisss/
+
+
+fitur push notifikasi nya bisa saat di jalankan di web npm run start-dev
+tetapi kalau di githubpages tidak bisa
