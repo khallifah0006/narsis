@@ -371,13 +371,6 @@ const StoryPresenter = {
   
   async renderHome() {
     const appContainer = document.getElementById('app');
-    if (!appContainer) {
-        console.error("Error: #app container not found!");
-        return;
-    }
-
-    const element = document.querySelector('.some-element');
-
     appContainer.innerHTML = `
       <h2>Recent Stories</h2>
       <div class="loader">
@@ -387,60 +380,45 @@ const StoryPresenter = {
     `;
     
     try {
-        const stories = await StoryModel.getAllStories(1, 20, 1);
-        const storiesContainer = document.querySelector('.stories-container');
-
-        if (stories.length === 0) {
-            storiesContainer.innerHTML = '<p>No stories found. Be the first to share a story!</p>';
-        } else {
-            storiesContainer.innerHTML = stories.map(story => `
-              <article class="story-card">
-                <img src="${story.photoUrl}" alt="Photo for story by ${story.name}" class="story-image">
-                <div class="story-content">
-                  <div class="story-author">
-                    <i class="fas fa-user author-icon"></i>
-                    <span>${story.name}</span>
-                  </div>
-                  <h3 class="story-title">Story by ${story.name}</h3>
-                  <p class="story-description">${story.description}</p>
-                  <div class="story-meta">
-                    <span><i class="fas fa-calendar"></i> ${new Date(story.createdAt).toLocaleDateString()}</span>
-                    <button class="story-detail-button" data-id="${story.id}">View Details</button>
-                  </div>
-                </div>
-              </article>
-            `).join('');
-
-            document.querySelectorAll('.story-detail-button').forEach(button => {
-                button.addEventListener('click', async () => {
-                    const storyId = button.getAttribute('data-id');
-                    this.showStoryDetail(storyId);
-                });
+      const stories = await StoryModel.getAllStories(1, 20, 1);
+      const storiesContainer = document.querySelector('.stories-container');
+      
+      if (stories.length === 0) {
+        storiesContainer.innerHTML = '<p>No stories found. Be the first to share a story!</p>';
+      } else {
+        storiesContainer.innerHTML = stories.map(story => `
+          <article class="story-card">
+            <img src="${story.photoUrl}" alt="Photo for story by ${story.name}" class="story-image">
+            <div class="story-content">
+              <div class="story-author">
+                <i class="fas fa-user author-icon"></i>
+                <span>${story.name}</span>
+              </div>
+              <h3 class="story-title">Story by ${story.name}</h3>
+              <p class="story-description">${story.description}</p>
+              <div class="story-meta">
+                <span><i class="fas fa-calendar"></i> ${new Date(story.createdAt).toLocaleDateString()}</span>
+                <button class="story-detail-button" data-id="${story.id}">View Details</button>
+              </div>
+            </div>
+          </article>
+        `).join('');
+        
+        
+        document.querySelectorAll('.story-detail-button').forEach(button => {
+            button.addEventListener('click', async () => {
+              const storyId = button.getAttribute('data-id');
+              this.showStoryDetail(storyId);
             });
+          });
         }
-
-        // Hapus loader jika ada
-        const loader = document.querySelector('.loader');
-        if (loader) {
-            loader.remove();
-        } else {
-            console.warn("Loader not found! Skipping remove.");
-        }
-
-    } catch (error) {
-        const loader = document.querySelector('.loader');
-        if (loader) loader.remove();
-
+        
+        document.querySelector('.loader').remove();
+      } catch (error) {
+        document.querySelector('.loader').remove();
         this.showNotification(error.message, true);
-    }
-
-    // Hapus elemen jika ada
-    if (element) {
-        element.remove();
-    } else {
-        console.warn("Element '.some-element' not found! Skipping remove.");
-    }
-},
+      }
+    },
 
     
     
