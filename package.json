@@ -8,6 +8,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
+  "homepage": "https://khallifah0006.github.io/narsis",
+
   "author": "",
   "license": "ISC",
   "description": "",

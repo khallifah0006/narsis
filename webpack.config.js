@@ -7,6 +7,7 @@ module.exports = {
     entry: "./src/index.js",  // Ensure this matches your actual JS entry file
     output: {
         path: path.resolve(__dirname, "dist"),
+        publicPath: "/narsis/",
         filename: "bundle.js"  // ✅ Make sure Webpack generates a JS file here
     },
     mode: "development",
