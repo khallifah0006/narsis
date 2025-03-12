@@ -2,14 +2,13 @@
   "name": "narsisss",
   "version": "1.0.0",
   "main": "db.js",
+  "homepage": "https://khallifah0006.github.io/narsis",
   "scripts": {
     "start-dev": "webpack serve --mode development",
     "build": "webpack --mode production",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
-  "homepage": "https://khallifah0006.github.io/narsis",
-
   "author": "",
   "license": "ISC",
   "description": "",
